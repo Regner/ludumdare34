@@ -80,6 +80,7 @@ class LD34Game(object):
 
         # PyGame Setup
         pygame.init()
+        pygame.font.init()
         pygame.display.set_caption('Ludum Dare 34!!')
 
         self.screen_size = self.width, self.height = 1024, 640
@@ -88,6 +89,7 @@ class LD34Game(object):
 
         # Gameplay Setup
         self.running = False
+        self.score = 0
         self.player = Player()
         self.player_spawn = [200, 400]
 
@@ -97,10 +99,14 @@ class LD34Game(object):
 
         self.load_level()
 
+        # Setup Font Stuff
+        self.font = pygame.font.SysFont("Arial", 50)
+
     def load_level(self):
         tmx_data = load_pygame('untitled.tmx')
         map_data = pyscroll.TiledMapData(tmx_data)
         map_layer = pyscroll.BufferedRenderer(map_data, self.screen_size)
+        # map_layer.zoom = 2
 
         for obj in tmx_data.objects:
             if 'gameType' in obj.properties:
@@ -130,16 +136,18 @@ class LD34Game(object):
         if self.player.dead is True:
             self.reset_game()
 
+    def update_score(self):
+        self.score = int((self.player.position[0] - self.player_spawn[0]) / 20)
+        score_text = self.font.render('Score: {}'.format(self.score), 1, (200, 200, 200))
+        self.screen.blit(score_text, (10, 10))
+
     def reset_game(self):
         self.player.position = self.player_spawn
         self.player.dead = False
+        self.score = 0
 
     def draw(self):
-        x = self.player.rect.center[0]
-        y = self.height / 2
-
-        self.map_group.center((x, y))
-
+        self.map_group.center(self.player.rect.center)
         self.map_group.draw(self.screen)
 
     def run(self):
@@ -156,6 +164,9 @@ class LD34Game(object):
 
                 self.update(dt)
                 self.draw()
+
+                # Update score after self.draw so it gets rendered on top
+                self.update_score()
 
                 pygame.display.flip()
 
