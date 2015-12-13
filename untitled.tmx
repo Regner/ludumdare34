@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="20" tilewidth="32" tileheight="32" nextobjectid="39">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="20" tilewidth="32" tileheight="32" nextobjectid="43">
  <tileset firstgid="1" name="test_thing" tilewidth="32" tileheight="32" tilecount="64">
   <image source="assets/test_thing.png" trans="ff00ff" width="256" height="256"/>
-  <tile id="0">
-   <properties>
-    <property name="playerstart" value="True"/>
-    <property name="visible" value="False"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="safe" value="True"/>
-   </properties>
-  </tile>
  </tileset>
  <layer name="base" width="64" height="20">
   <data>
@@ -1209,7 +1198,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1298,7 +1287,21 @@
    <tile gid="2"/>
   </data>
  </layer>
- <objectgroup name="test">
-  <object id="38" name="ground" x="0" y="608" width="2048" height="32"/>
+ <objectgroup name="test" visible="0">
+  <object id="38" x="0" y="608" width="2048" height="32">
+   <properties>
+    <property name="gameType" value="wall"/>
+   </properties>
+  </object>
+  <object id="39" x="1313" y="576.667" width="32" height="32">
+   <properties>
+    <property name="gameType" value="wall"/>
+   </properties>
+  </object>
+  <object id="40" name="spawn" x="324" y="514" width="28" height="24">
+   <properties>
+    <property name="gameType" value="spawn"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
